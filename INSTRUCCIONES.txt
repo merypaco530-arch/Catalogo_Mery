@@ -1,0 +1,108 @@
+================================================================
+   INSTRUCCIONES PARA PERSONALIZAR TU CATÁLOGO BIOLIFFE
+================================================================
+
+SOLO NECESITAS EDITAR UN ARCHIVO: config.js
+Ábrelo con el Bloc de notas (clic derecho → Abrir con → Bloc de notas)
+
+----------------------------------------------------------------
+PASO 1 — CAMBIAR TU NOMBRE
+----------------------------------------------------------------
+Busca esta línea:
+   nombre: "Mery Martha Paco Soliz",
+
+Reemplaza el texto entre comillas con tu nombre completo.
+Ejemplo:
+   nombre: "Ana Mamani López",
+
+
+----------------------------------------------------------------
+PASO 2 — PONER TU FOTO
+----------------------------------------------------------------
+1. Copia tu foto a la carpeta "bioliffe-catalogo"
+2. Renómbrala "foto.jpg"
+3. En config.js busca esta línea:
+      foto: "",
+4. Escribe el nombre de tu foto entre las comillas:
+      foto: "foto.jpg",
+
+
+----------------------------------------------------------------
+PASO 3 — CAMBIAR TU WHATSAPP
+----------------------------------------------------------------
+Busca esta línea:
+   whatsapp: "https://wa.me/message/74UN3F2XR6FCC1",
+
+Reemplaza el link con el tuyo.
+
+¿Cómo consigo mi link de WhatsApp?
+→ Abre WhatsApp Business
+→ Ve a Herramientas para la empresa
+→ Link corto
+→ Copia el link y pégalo aquí
+
+
+----------------------------------------------------------------
+PASO 4 — CAMBIAR TU TIKTOK
+----------------------------------------------------------------
+Busca estas dos líneas:
+   tiktok_url: "https://www.tiktok.com/@merypacosoliz...",
+   tiktok_usuario: "@merypacosoliz",
+
+- En tiktok_url: pega el link completo de tu perfil de TikTok
+- En tiktok_usuario: escribe tu @usuario
+
+
+----------------------------------------------------------------
+PASO 5 — CAMBIAR TU FACEBOOK
+----------------------------------------------------------------
+Busca esta línea:
+   facebook_url: "https://www.facebook.com/share/1KinRQ92F1/",
+
+Reemplaza con el link de tu perfil o página de Facebook.
+
+¿Cómo consigo mi link?
+→ Abre tu perfil o página en Facebook
+→ Toca los 3 puntos (···)
+→ Copiar link → Pégalo aquí
+
+
+----------------------------------------------------------------
+PASO 6 — GUARDAR Y SUBIR A GITHUB
+----------------------------------------------------------------
+1. Guarda el archivo config.js (Ctrl + S)
+2. Sube TODOS los archivos de la carpeta a GitHub
+3. ¡Listo! Tu catálogo ya muestra tu información
+
+
+================================================================
+   ARCHIVOS QUE VAN A GITHUB (no borres ninguno)
+================================================================
+✅ index.html
+✅ catalogo.html
+✅ detalle.html
+✅ enfermedades.html
+✅ enfermedad.html
+✅ formacion.html
+✅ porque.html
+✅ precios.html
+✅ config.js          ← el que editas tú
+✅ imagenes/          ← carpeta con todas las fotos
+✅ ubicacion/         ← imagen del local
+
+
+================================================================
+   PREGUNTAS FRECUENTES
+================================================================
+
+¿Puedo cambiar los precios?
+→ Abre precios.html con el Bloc de notas y busca el precio
+   que quieres cambiar. Están escritos así: Bs. 125
+
+¿Puedo agregar un producto nuevo al catálogo?
+→ Escríbele a Jhonar para que te ayude a agregarlo.
+
+¿El catálogo funciona en el celular?
+→ Sí, está diseñado para verse bien en celular y computadora.
+
+================================================================

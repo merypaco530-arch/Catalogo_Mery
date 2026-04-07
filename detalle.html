@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bioliffe - Detalle del Producto</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --verde: #00d96a; --glow-soft: 0 0 12px #00d96a55; }
+
+    body {
+      font-family: 'Comfortaa', cursive;
+      background: #f7fff9;
+      color: #0a2e14;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse at 0% 0%,    #00e67630 0%, transparent 40%),
+        radial-gradient(ellipse at 100% 0%,   #00e67628 0%, transparent 40%),
+        radial-gradient(ellipse at 0% 100%,   #00e67622 0%, transparent 40%),
+        radial-gradient(ellipse at 100% 100%, #00e67630 0%, transparent 40%);
+      pointer-events: none; z-index: 0;
+    }
+
+    header { position: relative; z-index: 10; text-align: center; padding: 28px 20px 10px; }
+
+    .logo-text {
+      height: 72px; width: 200px;
+      object-fit: contain; mix-blend-mode: multiply;
+      animation: pulso 3s ease-in-out infinite;
+    }
+    @keyframes pulso { 0%,100%{opacity:1} 50%{opacity:.82} }
+
+    .btn-volver {
+      position: relative; z-index: 10;
+      display: inline-flex; align-items: center; gap: 8px;
+      margin: 14px 20px; padding: 8px 18px;
+      background: white; border: 2px solid #e0ede5; border-radius: 20px;
+      text-decoration: none; color: #0a2e14;
+      font-family: 'Comfortaa', cursive; font-size: 0.83rem;
+      font-weight: 600; letter-spacing: 1px; transition: all 0.3s;
+    }
+    .btn-volver:hover { border-color: var(--verde); color: var(--verde); box-shadow: var(--glow-soft); }
+
+    .linea-glow {
+      width: 80%; max-width: 500px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--verde), transparent);
+      margin: 8px auto 26px; box-shadow: var(--glow-soft);
+    }
+
+    .contenido {
+      position: relative; z-index: 10;
+      max-width: 920px; margin: 0 auto; padding: 0 16px 40px;
+    }
+
+    /* LAYOUT DOS COLUMNAS: info izq | imagen der */
+    .prod-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    /* COLUMNA IZQUIERDA — info */
+    .prod-col-info { display: flex; flex-direction: column; gap: 0; }
+
+    /* COLUMNA DERECHA — imagen */
+    .prod-img-wrap {
+      border: 2px solid #e0ede5;
+      border-radius: 18px; overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      background: #f8fdf9;
+      position: sticky; top: 20px;
+    }
+    .prod-img-wrap img {
+      width: 100%;
+      height: 380px;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      padding: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .prod-layout {
+        grid-template-columns: 1fr;
+      }
+      .prod-img-wrap img { height: 260px; }
+      .prod-img-wrap { position: static; }
+    }
+
+    /* CABECERA INFO */
+    .info-box {
+      background: white; border: 2px solid #e0ede5;
+      border-radius: 16px; padding: 20px 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .info-cat {
+      font-size: 0.66rem; letter-spacing: 3px;
+      color: var(--verde); text-transform: uppercase;
+      font-weight: 700; margin-bottom: 6px;
+      text-shadow: 0 0 8px #00d96a66;
+    }
+
+    .info-nombre {
+      font-size: 1.2rem; font-weight: 700;
+      color: #0a2e14; line-height: 1.3; margin-bottom: 10px;
+    }
+
+    .info-presentacion {
+      display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px;
+    }
+    .tag {
+      background: #f0faf2; border: 1px solid #00d96a40;
+      color: var(--verde); font-size: 0.72rem; font-weight: 700;
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    .info-precio {
+      font-size: 1.7rem; font-weight: 700; color: var(--verde);
+      text-shadow: 0 0 14px #00d96a55;
+    }
+
+    /* DESCRIPCIÓN / BENEFICIOS */
+    .seccion {
+      background: white; border: 2px solid #e0ede5;
+      border-radius: 16px; padding: 18px 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .sec-titulo {
+      font-size: 0.70rem; letter-spacing: 3px;
+      text-transform: uppercase; font-weight: 700;
+      color: #0a2e14; margin-bottom: 12px;
+      padding-bottom: 8px; border-bottom: 1px solid #e8f5e9;
+    }
+    .seccion p { font-size: 0.9rem; color: #222; line-height: 1.8; }
+
+    .lista-benef { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .lista-benef li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.88rem; color: #222; line-height: 1.55;
+    }
+    .lista-benef li::before {
+      content: '✦'; color: var(--verde); font-size: 0.65rem;
+      margin-top: 5px; flex-shrink: 0;
+      text-shadow: 0 0 8px #00d96a88;
+    }
+
+    /* ── BLOQUE WHATSAPP FINAL ── */
+    .wa-bloque {
+      background: #0a2e14;
+      border: none;
+      border-radius: 20px;
+      padding: 28px 22px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+    }
+
+    .wa-bloque p {
+      font-size: 0.82rem; color: #c8f5d8;
+      letter-spacing: 1px; margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .wa-bloque .wa-titulo {
+      font-size: 1rem; font-weight: 700; color: var(--verde);
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 6px;
+      text-shadow: 0 0 12px #00d96a88;
+    }
+
+    .btn-wa-grande {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      background: #25D366; color: white;
+      border: none; border-radius: 16px;
+      padding: 18px 24px; width: 100%;
+      font-family: 'Comfortaa', cursive;
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: 1px; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      transition: all 0.3s; cursor: pointer;
+    }
+    .btn-wa-grande:hover {
+      background: #1ebe5d;
+      box-shadow: 0 6px 30px rgba(37,211,102,0.7);
+      transform: translateY(-2px);
+    }
+    .btn-wa-grande svg { flex-shrink: 0; }
+
+    .wa-nota {
+      margin-top: 12px;
+      font-size: 0.7rem; color: #00d96a66; letter-spacing: 1px;
+    }
+
+    footer {
+      position: relative; z-index: 10; text-align: center;
+      padding: 20px; font-size: 0.70rem; color: #00d96a66;
+      letter-spacing: 2px; border-top: 1px solid #00d96a20;
+    }
+
+    @media (max-width: 480px) {
+      .info-nombre { font-size: 1rem; }
+      .info-precio { font-size: 1.4rem; }
+      .btn-wa-grande { font-size: 0.88rem; padding: 16px 18px; }
+      .prod-layout { grid-template-columns: 1fr; }
+      .prod-img-wrap img { height: 240px; }
+      .prod-img-wrap { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<header><img class="logo-text" src="imagenes/Logo.png" alt="Bioliffe"/><p style="font-size:0.75rem;letter-spacing:4px;color:#00d96a99;margin-top:4px;text-transform:uppercase;font-family:'Comfortaa',cursive;">MORINGA 100% NATURAL</p></header>
+<a href="catalogo.html" class="btn-volver">◀ Volver al catálogo</a>
+<div class="linea-glow"></div>
+
+<div class="contenido" id="contenido">
+  <p style="text-align:center;padding:40px;color:#999;">Cargando...</p>
+</div>
+
+<a href="index.html" class="btn-volver" style="display:flex;justify-content:center;margin:0 20px 16px;">◀ Volver al inicio</a>
+<footer>BIOLIFFE BOLIVIA · CATÁLOGO VIRTUAL OFICIAL</footer>
+
+<script src="config.js"></script>
+<script>
+  // WhatsApp se lee automáticamente desde config.js
+  const WA = SOCIA.whatsapp;
+
+  // ── BASE DE DATOS DE LOS 22 PRODUCTOS ──
+  const DB = {
+
+    'capsulas-moringa': {
+      nombre: 'Cápsulas de Moringa',
+      cat: 'Suplementos · Bioliffe',
+      precio: 'Bs. 225',
+      pres: ['Envase 100 Cápsulas'],
+      img: 'imagenes/productos/capsulas.png',
+      desc: 'Las Cápsulas de Moringa están conformadas por hojas de moringa altamente procesadas para potenciar la biodisponibilidad de sus nutrientes y ayudar a elevar el sistema inmunitario de manera natural.',
+      ben: [
+        'Fortalecen el sistema inmune.',
+        'Contiene alto valor energético.',
+        'Ayuda a reducir la cantidad de glucosa en la sangre.',
+        'Aumenta la cantidad de leche materna.',
+        'Rico en vitaminas, minerales y aminoácidos esenciales.'
+      ]
+    },
+
+    'purifort-capsulas': {
+      nombre: 'Cápsulas Semilla de Moringa — Purifort',
+      cat: 'Suplementos · Bioliffe',
+      precio: 'Bs. 325',
+      pres: ['Envase 100 Cápsulas'],
+      img: 'imagenes/productos/purifort.png',
+      desc: 'El Purifort son cápsulas de semilla de moringa que ayudan a combatir y prevenir enfermedades. Su cómoda presentación permite llevar este gran producto a todos lados.',
+      ben: [
+        'Contiene Quercetina que previene la diabetes.',
+        'Limpia el organismo de impurezas.',
+        'El magnesio regula la función de los músculos.'
+      ]
+    },
+
+    'oni-capsulas-blandas': {
+      nombre: 'Cápsulas Blandas Aceite de Moringa — Oni',
+      cat: 'Suplementos · Bioliffe',
+      precio: 'Bs. 400',
+      pres: ['Envase 100ml'],
+      img: 'imagenes/productos/ori.png',
+      desc: 'El Oni son cápsulas blandas de aceite de moringa que ayudan a potenciar los nutrientes que se consumen. El aceite de moringa tiene los nutrientes activos que forman parte del cuerpo humano.',
+      ben: [
+        'Alto contenido de ácido oleico, ácido linoleico y ácido linolénico.',
+        'Tiene propiedades anti-inflamatorias.',
+        'Ayuda a reducir el colesterol y la presión arterial.',
+        'Tiene propiedades que ayudan en la pérdida de peso.'
+      ]
+    },
+
+    'harina-moringa': {
+      nombre: 'Harina de Moringa',
+      cat: 'Suplementos · Bioliffe',
+      precio: 'Bs. 225',
+      pres: ['Pote 250gr'],
+      img: 'imagenes/productos/harinamoringa.png',
+      desc: 'Harina de Moringa a base de hojas de moringa, para personas que requieran comer alimentos fortificados y necesiten elevar su sistema inmunológico. Alimento de alto nivel proteico.',
+      ben: [
+        'Fortalece el sistema inmune.',
+        'Contiene alto valor energético.',
+        'Calcio y fósforo que ayudan a mantener los huesos sanos y fuertes.',
+        'Versátil para todo tipo de platillos, meriendas y bebidas del día.',
+        'Vitaminas, minerales y aminoácidos esenciales.'
+      ]
+    },
+
+    'alkam-suplemento': {
+      nombre: 'Suplemento de Moringa — Alka-M',
+      cat: 'Suplementos · Bioliffe',
+      precio: 'Bs. 350 / Bs. 375',
+      pres: ['Pote', 'Sachet', 'Stick'],
+      img: 'imagenes/productos/alka-m.png',
+      desc: 'El Alka-M es un suplemento alcalinizante con una variedad concentrada de moringa que potencia el fortalecimiento interno del organismo y alcaliniza el pH del cuerpo.',
+      ben: [
+        'Ayuda al fortalecimiento interno del organismo.',
+        'La sílice promueve el fortalecimiento interno.',
+        'Las hojas de moringa alcalinizan el pH del cuerpo.',
+        'Potencia el estado de salud y limpieza natural del organismo.',
+        'Disponible en cómodas presentaciones para cualquier momento.'
+      ]
+    },
+
+    'propoleo-moringa': {
+      nombre: 'Propóleo con Moringa',
+      cat: 'Suplementos · Bioliffe',
+      precio: 'Bs. 275',
+      pres: ['Pote 180ml'],
+      img: 'imagenes/productos/propoleo.png',
+      desc: 'El Propóleo Bioliffe es una mezcla única de resinas, polen y cera que fortalece tu sistema inmunológico con su alta concentración de sustancias activas. Ofrece una defensa efectiva y natural contra las infecciones.',
+      ben: [
+        'Elimina las infecciones, como la cistitis o la candidiasis.',
+        'Tiene un efecto antiinflamatorio para la garganta.',
+        'Cicatriza heridas y lesiones.',
+        'Reduce los niveles de los triglicéridos.'
+      ]
+    },
+
+    'proteina-nutricional': {
+      nombre: 'Proteína Nutricional con Moringa',
+      cat: 'Suplementos · Bioliffe',
+      precio: 'Bs. 425',
+      pres: ['Pote 1197gr'],
+      img: 'imagenes/productos/colosal.png',
+      desc: 'Batido Nutricional bien balanceado con fibra, vitaminas y minerales. Contiene 15gr de proteína por porción y multivitamínicos que ayudan al control del peso y la vitalidad.',
+      ben: [
+        'Suplemento nutricional rico en proteínas.',
+        'El Multivitamínico aporta más de 12 vitaminas.',
+        'Ayuda a reducir centímetros en cintura.',
+        'Contribuye al control del peso corporal.',
+        'Rico en antioxidantes naturales.'
+      ]
+    },
+
+    'revitalis': {
+      nombre: 'Revitalizante Natural de Alto Potencial — Revitalis',
+      cat: 'Bienestar · Bioliffe',
+      precio: 'Bs. 400',
+      pres: ['Pote 379gr'],
+      img: 'imagenes/productos/revitalis.png',
+      desc: 'REVITALIS contiene una gran potencia de sustancias para revitalizar tu organismo, fortalecerlo, renovarlo y ayudarte a ti mismo. Alto potencial antioxidante y energizante natural.',
+      ben: [
+        'El Maca actúa como estimulante y antioxidante de alto potencial.',
+        'La uchucara regenera y rejuvenece los tejidos del organismo.',
+        'La moringa reduce el estrés y el cansancio a largo plazo.',
+        'Ayuda a disminuir los síntomas del envejecimiento.'
+      ]
+    },
+
+    'epiclax-detox': {
+      nombre: 'Detox Natural con Semillas de Moringa — Epiclax',
+      cat: 'Bienestar · Bioliffe',
+      precio: 'Bs. 375',
+      pres: ['Polvo 500g', 'Sachet', 'Stick'],
+      img: 'imagenes/productos/eficlax.png',
+      desc: 'Eficlas contiene semillas de moringa liofilizadas, acompañado de diversas hojas y frutos que brindan nutrientes al cuerpo y potencian tu sistema de auto-limpieza y depuración natural.',
+      ben: [
+        'La Stevia y El Yacón ayudan al sistema digestivo y previenen el estreñimiento.',
+        'El tamarindo es rico en fibra, minerales y vitaminas A y C.',
+        'La Pitahaya es una fuente de antioxidantes naturales.',
+        'La Ciruela tiene elevados niveles de potasio y calcio.',
+        'Los Dátiles limpian el colón.'
+      ]
+    },
+
+    'althus-energizante': {
+      nombre: 'Energizante de Moringa — Althus',
+      cat: 'Bienestar · Bioliffe',
+      precio: 'Bs. 375',
+      pres: ['Dopack 400mg', 'Stick 4g'],
+      img: 'imagenes/productos/althus.png',
+      desc: 'Althus es un energizante que contiene ingredientes naturales cuidadosamente seleccionados para disfrutar de una vitalidad duradera de manera 100% natural.',
+      ben: [
+        'El té verde incrementa la reducción de grasas y mejora el rendimiento físico.',
+        'La maca amarilla fortalece los huesos y mejora el flujo sanguíneo.',
+        'La guaraná aumenta la energía y aminora la fatiga.',
+        'La Maca negra es una fuente generadora de energía y vitalidad.',
+        'Favorece la sensación de saciedad y beneficia la pérdida de peso.'
+      ]
+    },
+
+    'metha-quemador': {
+      nombre: 'Quemador de Grasa Natural — Metha',
+      cat: 'Bienestar · Bioliffe',
+      precio: 'Bs. 375',
+      pres: ['Pote 225gr'],
+      img: 'imagenes/productos/meta.png',
+      desc: 'METHA es un suplemento natural con el poder de elevar tu metabolismo para ayudarte a perder peso, quemando grasas y calorías de una manera más eficaz al momento de ejercitarte.',
+      ben: [
+        'Flor de Jamaica que elimina residuos negativos del organismo.',
+        'Camu Camu que favorece la pérdida de peso.',
+        'Maracuyá, fruta rica en fibra para controlar el apetito.',
+        'La toronja ayuda al metabolismo y la pérdida de peso.',
+        'La Frambuesa está llena de vitaminas, minerales y antioxidantes.'
+      ]
+    },
+
+    'vegafull': {
+      nombre: 'Vigorizante Natural con Moringa — Vegafull',
+      cat: 'Bienestar · Bioliffe',
+      precio: 'Bs. 350',
+      pres: ['Pote 150gr'],
+      img: 'imagenes/productos/vengafull.png',
+      desc: 'VEGAFULL es un estimulante natural, lleno de vitaminas y antioxidantes, usado también como vigorizante que fortalece el sistema inmune y contribuye dando energía y vitalidad al cuerpo.',
+      ben: [
+        'Efecto antiinflamatorio gracias a la uña de gato.',
+        'Fortalece el sistema inmunitario de manera natural.',
+        'Mejora la calidad de la erección.',
+        'Incentiva el deseo sexual.',
+        'Afrodisiaco natural.'
+      ]
+    },
+
+    'amagi-cafe': {
+      nombre: 'Café con Moringa — Amagi',
+      cat: 'Café · Bioliffe',
+      precio: 'Bs. 212',
+      pres: ['Pote 300g', 'Caja 15 Sticks', 'Stick 15g'],
+      img: 'imagenes/productos/amagicafe.png',
+      desc: 'Amagi café contiene gran variedad de fitonutrientes esenciales entre vitaminas, proteínas, carbohidratos, minerales y más, que ayudan a mejorar y fortalecer nuestro sistema inmune naturalmente.',
+      ben: [
+        'Reduce el cansancio, la fatiga y el estrés.',
+        'Mejora el sistema cardiovascular.',
+        'Ayuda a la reducción de enfermedades neuronales.',
+        'Mejora el tránsito intestinal y genera la función diurética.',
+        'Previene la esclerosis múltiple y el daño celular del cerebro.'
+      ]
+    },
+
+    'amagi-black': {
+      nombre: 'Café Moringa Ganoderma y Espirulina — Amagi Black',
+      cat: 'Café · Bioliffe',
+      precio: 'Bs. 325 / Bs. 300',
+      pres: ['Pote', 'Caja Sticks', 'Stick'],
+      img: 'imagenes/productos/amagiblack.png',
+      desc: 'Amagi Black es café base de energía natural que fortalece el sistema inmune de una fuente poderosa, combinando moringa, Ganoderma y Espirulina.',
+      ben: [
+        'El Ganoderma fortalece el sistema inmune.',
+        'El hongo Ganoderma contiene moléculas anticancerígenas.',
+        'Vitamina A y Zeaxantina que previenen la esclerosis.',
+        'La moringa aporta altos niveles nutritivos y nutrientes.'
+      ]
+    },
+
+    'amagi-cappuccino': {
+      nombre: 'Café Moringa Sabor Cappuccino — Amagi',
+      cat: 'Café · Bioliffe',
+      precio: 'Bs. 187',
+      pres: ['Caja 15 Sticks', 'Stick 15g'],
+      img: 'imagenes/productos/capuchino.png',
+      desc: 'Amagi Cappuccino tiene mayor concentración de moringa que otros cafés y un agradable sabor a cappuccino. Gran fuente de vitaminas y antioxidantes que fortalecen el sistema inmune.',
+      ben: [
+        'Ayuda a prevenir y tratar la diabetes, colesterol e hipertensión.',
+        'La vaca grasa brinda espuma, cremosidad y proteínas.',
+        'La moringa previene enfermedades neuronales.',
+        'La leche descremada ayuda a perder peso.',
+        'Brinda energía y vitalidad.'
+      ]
+    },
+
+    'amagi-fit': {
+      nombre: 'Café Moringa Sin Azúcar — Amagi Fit',
+      cat: 'Café · Bioliffe',
+      precio: 'Bs. 300',
+      pres: ['Dopack 30 Sticks', 'Stick 4g'],
+      img: 'imagenes/productos/amagifit.png',
+      desc: 'Amagi Fit tiene vitaminas, proteínas y capacidad antioxidante necesaria para el mejor funcionamiento del organismo, previniendo múltiples enfermedades con 0% de azúcar.',
+      ben: [
+        '0% de azúcar.',
+        'El Yacón fortalece el sistema inmunológico.',
+        'Las Hojas de moringa mejoran la circulación sanguínea.'
+      ]
+    },
+
+    'nutro-shampoo': {
+      nombre: 'Shampoo con Extracto de Moringa — Nutro',
+      cat: 'Cuidado del Cabello · Bioliffe',
+      precio: 'Bs. 175',
+      pres: ['Envase 300ml'],
+      img: 'imagenes/productos/nutro.png',
+      desc: 'El Shampoo Nutro contiene el compuesto de extracto de moringa que repara, cuida y regenera el cabello profundamente con ingredientes 100% naturales.',
+      ben: [
+        'La Sábila humecta el cabello y lo renueva.',
+        'El D-Pantenol previene la caída del cabello.',
+        'La Keratina oxigena el cabello.',
+        'El aceite de moringa nutre el cabello y estimula su crecimiento.',
+        'El Zinc es esencial para la salud de los folículos pilosos.'
+      ]
+    },
+
+    'colageno-revella': {
+      nombre: 'Colágeno con Moringa — Revella',
+      cat: 'Belleza · Bioliffe',
+      precio: 'Bs. 375',
+      pres: ['Sachet', 'Stick', 'Envase'],
+      img: 'imagenes/productos/revella.png',
+      desc: 'Revella es la mejor forma de limpiar y suavizar todo tu rostro en su fórmula suave, adecuada para todo tipo de piel ya que no contiene perfume.',
+      ben: [
+        'Propiedades antienvejecimiento al mantener la piel hidratada.',
+        'El Ácido Hialurónico reduce la apariencia de arrugas y líneas finas.',
+        'Células Madre para regenerar y reparar tejidos de la piel.',
+        'Colágeno y extracto de moringa que reparan y renuevan la piel.',
+        'Vitamina A y E que fortalecen la piel.',
+        'Promueve elasticidad y firmeza del cuerpo.'
+      ]
+    },
+
+    'colageno-revella-pote': {
+      nombre: 'Colágeno con Moringa Pote — Revella',
+      cat: 'Belleza · Bioliffe',
+      precio: 'Bs. 350',
+      pres: ['Pote 100g'],
+      img: 'imagenes/productos/revella.png',
+      desc: 'Revella en pote, versión sin azúcar. Tiene el aceite de moringa que ayuda a tener un estado de salud y vitalidad óptima para la piel y el cuerpo.',
+      ben: [
+        'Cero uso de azúcar.',
+        'Fortalece huesos, tendones, cartílagos y articulaciones.',
+        'Promueve la elasticidad y firmeza de la piel.',
+        'Camu camu que ayuda a reducir la inflamación.',
+        'Alta concentración de vitamina C.'
+      ]
+    },
+
+    'xol-aceite': {
+      nombre: 'Aceite de Moringa — XOL',
+      cat: 'Belleza · Bioliffe',
+      precio: 'Bs. 300',
+      pres: ['Envase 30ml'],
+      img: 'imagenes/productos/xol.png',
+      desc: 'El XOL es un aceite de moringa que contiene una gran cantidad de ácidos grasos como el ácido oleico, el cual tiene propiedades antiinflamatorias para la piel.',
+      ben: [
+        'Contiene Zeatina que ralentiza el proceso de envejecimiento.',
+        'Vitamina A, C y E esenciales para la piel.',
+        'Aceite de Moringa con efecto antiinflamatorio.'
+      ]
+    },
+
+    'eternal-crema': {
+      nombre: 'Crema con Extracto de Moringa — Eternal',
+      cat: 'Belleza · Bioliffe',
+      precio: 'Bs. 500',
+      pres: ['Envase 50g'],
+      img: 'imagenes/productos/eternal.png',
+      desc: 'Eternal es la mejor crema para limpiar y suavizar todo tu rostro. Fórmula suave adecuada para todo tipo de piel, sin perfume, con colágeno y ácido hialurónico.',
+      ben: [
+        'Propiedades antienvejecimiento al mantener la piel hidratada.',
+        'El Ácido Hialurónico reduce arrugas y líneas finas.',
+        'Células Madre para regenerar y reparar tejidos de la piel.',
+        'Colágeno y extracto de moringa que reparan y renuevan la piel.',
+        'Vitamina A y E que fortalecen la piel.',
+        'Estimula la producción de colágeno propio.'
+      ]
+    },
+
+    'biokids-gomitas': {
+      nombre: 'Gomitas con Moringa para Niños — Biokids',
+      cat: 'Niños · Bioliffe',
+      precio: 'Bs. 375',
+      pres: ['Envase 70 Gomitas'],
+      img: 'imagenes/productos/biokids.png',
+      desc: 'Las Gomitas Biokids con moringa, Zinc, DHA y ARA están especialmente diseñadas para niños, con ingredientes que necesitan para fortalecer su sistema inmunológico y pleno desarrollo.',
+      ben: [
+        'Aceite de moringa que brinda energía.',
+        'DHA y ARA que ayudan al desarrollo cerebral.',
+        'Incentiva el crecimiento óseo y regula la anemia.',
+        'Hierro que previene la anemia y combate la inflamación.',
+        'Zinc y vitaminas esenciales para el crecimiento.'
+      ]
+    }
+
+  }; // fin DB
+
+  // ── RENDERIZAR ──
+  (function() {
+    const id   = new URLSearchParams(window.location.search).get('p');
+    const prod = DB[id];
+    const box  = document.getElementById('contenido');
+
+    if (!prod) {
+      box.innerHTML = '<p style="text-align:center;padding:50px;color:#555;">Producto no encontrado. <a href="catalogo.html">Volver al catálogo</a></p>';
+      return;
+    }
+
+    document.title = 'Bioliffe — ' + prod.nombre;
+
+    const tags = prod.pres.map(t => `<span class="tag">${t}</span>`).join('');
+    const bens = prod.ben.map(b => `<li>${b}</li>`).join('');
+
+    const msg = encodeURIComponent(
+      '¡Hola! Vi tu catálogo Bioliffe y me interesa el producto:\n\n*' +
+      prod.nombre + '* (' + prod.precio + ')\n\n¿Podrías darme más información? 🌿'
+    );
+    const waLink = WA;
+
+    box.innerHTML = `
+      <div class="prod-layout">
+
+        <!-- COLUMNA IZQUIERDA: info -->
+        <div class="prod-col-info">
+          <div class="info-box">
+            <div class="info-cat">${prod.cat}</div>
+            <div class="info-nombre">${prod.nombre}</div>
+            <div class="info-presentacion">${tags}</div>
+            <div class="info-precio">${prod.precio}</div>
+          </div>
+
+          <div class="seccion" style="margin-top:16px;">
+            <div class="sec-titulo">Descripción</div>
+            <p>${prod.desc}</p>
+          </div>
+
+          <div class="seccion" style="margin-top:16px;">
+            <div class="sec-titulo">Beneficios</div>
+            <ul class="lista-benef">${bens}</ul>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: imagen -->
+        <div class="prod-img-wrap">
+          <img src="${prod.img}" alt="${prod.nombre}"/>
+        </div>
+
+      </div>
+
+      <div class="wa-bloque">
+        <div class="wa-titulo">¿Te interesa este producto?</div>
+        <p>Escríbenos directamente por WhatsApp y<br/>te atendemos al instante con toda la información</p>
+        <a class="btn-wa-grande" href="${waLink}" target="_blank">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Para más información presiona aquí
+        </a>
+        <div class="wa-nota">Te responderemos a la brevedad · Atención personalizada</div>
+      </div>
+    `;
+  })();
+</script>
+</body>
+</html>
